@@ -1,5 +1,5 @@
-require './my_strategy'
-require './remote_process_client'
+require_relative 'app/my_strategy'
+require_relative 'remote_process_client'
 
 class Runner
   def initialize

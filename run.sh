@@ -7,5 +7,5 @@ cd ./local-runner/
 
 sleep 3s
 
-cd ../
-ruby runner.rb
+cd ../app/
+ruby ../runner.rb
