@@ -5,7 +5,7 @@ class Tile
   attr_reader :x
   attr_reader :y
 
-  def Tile.containing_unit(unit)
+  def Tile.under(unit)
     Env.world.tiles_x_y.each_with_index do |columns, x|
       columns.each_with_index do |tile_type, y|
         tile = Tile.new(x, y, tile_type)
