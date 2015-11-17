@@ -59,11 +59,27 @@ class Env
     path = PathFinder.new(ws[-1], ws[0]).find_shortest_path
     sws += filter_corners(path)
     convert_to_waypoints!(sws)
+    assign_directions(sws)
     sws
   end
 
   def convert_to_waypoints!(sws)
     sws.map! { |t| Waypoint.from_tile(t) }
+  end
+
+  def assign_directions(sws)
+    (sws+[sws.first]).each_cons(2) do |swp|
+      d = swp[0].delta(swp[1])
+      if d[:x] > 0
+        swp[0].next_direction = :left
+      elsif d[:x] < 0
+        swp[0].next_direction = :right
+      elsif d[:y] > 0
+        swp[0].next_direction = :top
+      else
+        swp[0].next_direction = :bottom
+      end
+    end
   end
 
   def filter_corners(path)

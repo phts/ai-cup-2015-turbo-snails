@@ -7,6 +7,10 @@ class Tile
                    TileType::RIGHT_TOP_CORNER,
                    TileType::LEFT_BOTTOM_CORNER,
                    TileType::RIGHT_BOTTOM_CORNER,
+                   TileType::LEFT_HEADED_T,
+                   TileType::RIGHT_HEADED_T,
+                   TileType::TOP_HEADED_T,
+                   TileType::BOTTOM_HEADED_T,
                  ]
 
   INNER_ACCESSIBLE_PADDING = 140
@@ -60,14 +64,18 @@ class Tile
     top_y = y * Env.game.track_tile_size
     right_x = (x+1) * Env.game.track_tile_size - 1
     bottom_y = (y+1) * Env.game.track_tile_size - 1
-    inner_top_left_x = left_x + INNER_ACCESSIBLE_PADDING
-    inner_top_left_y = top_y + INNER_ACCESSIBLE_PADDING
-    inner_top_right_x = right_x - INNER_ACCESSIBLE_PADDING
-    inner_top_right_y = inner_top_left_y
-    inner_bottom_left_x = inner_top_left_x
-    inner_bottom_left_y = bottom_y - INNER_ACCESSIBLE_PADDING
-    inner_bottom_right_x = inner_top_right_x
-    inner_bottom_right_y = inner_bottom_left_y
+    inner_left_x = left_x + INNER_ACCESSIBLE_PADDING
+    inner_top_y = top_y + INNER_ACCESSIBLE_PADDING
+    inner_right_x = right_x - INNER_ACCESSIBLE_PADDING
+    inner_bottom_y = bottom_y - INNER_ACCESSIBLE_PADDING
+    inner_top_left_x = inner_left_x
+    inner_top_left_y = inner_top_y
+    inner_top_right_x = inner_right_x
+    inner_top_right_y = inner_top_y
+    inner_bottom_left_x = inner_left_x
+    inner_bottom_left_y = inner_bottom_y
+    inner_bottom_right_x = inner_right_x
+    inner_bottom_right_y = inner_bottom_y
 
     {
       center_x: cx,
@@ -92,6 +100,10 @@ class Tile
       bottom_left_y: bottom_y,
       left_center_x: left_x,
       left_center_y: cy,
+      inner_left_x: inner_left_x,
+      inner_top_y: inner_top_y,
+      inner_right_x: inner_right_x,
+      inner_bottom_y: inner_bottom_y,
       inner_top_left_x: inner_top_left_x,
       inner_top_left_y: inner_top_left_y,
       inner_top_right_x: inner_top_right_x,
