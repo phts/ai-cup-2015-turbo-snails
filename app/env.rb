@@ -60,9 +60,9 @@ class Env
 
   def update_next_subwaypoint_index
     csw = Tile.under(Env.me)
-    index = subwaypoints.index{|sw| sw.equals?(csw)}
-    return unless index
-    @next_subwaypoint_index = (index+1) % subwaypoints.count
+    if (subwaypoints[@next_subwaypoint_index].equals? csw)
+      @next_subwaypoint_index = (@next_subwaypoint_index+1) % subwaypoints.count
+    end
   end
 
 end
