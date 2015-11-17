@@ -2,6 +2,7 @@ require 'singleton'
 require 'forwardable'
 require_relative 'car_proxy'
 require_relative 'path_finder'
+require_relative 'waypoint'
 
 class Env
   include Singleton
@@ -57,7 +58,12 @@ class Env
     sws << ws[-1]
     path = PathFinder.new(ws[-1], ws[0]).find_shortest_path
     sws += filter_corners(path)
+    convert_to_waypoints!(sws)
     sws
+  end
+
+  def convert_to_waypoints!(sws)
+    sws.map! { |t| Waypoint.from_tile(t) }
   end
 
   def filter_corners(path)
