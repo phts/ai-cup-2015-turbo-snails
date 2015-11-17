@@ -7,4 +7,8 @@ class CarProxy < Proxy
     super(car)
   end
 
+  def next_waypoint
+    Tile.at(subject.next_waypoint_x, subject.next_waypoint_y)
+  end
+
 end

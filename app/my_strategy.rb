@@ -10,7 +10,7 @@ class MyStrategy
   def move(me, world, game, move)
     Env.update(me, world, game, move)
 
-    waypoint = Tile.at(Env.me.next_waypoint_x, Env.me.next_waypoint_y)
+    waypoint = Env.me.next_waypoint
 
     corner_tile_offset = 0.25 * Env.game.track_tile_size
     case waypoint.type
