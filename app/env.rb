@@ -45,7 +45,8 @@ class Env
     ws.each_cons(2) do |p|
       sws << p[0]
       path = PathFinder.new(p[0], p[1]).find_shortest_path
-      sws += filter_corners(path)
+      path_without_start_and_end = path[1..-2]
+      sws += filter_corners(path_without_start_and_end)
     end
     sws << ws[-1]
     path = PathFinder.new(ws[-1], ws[0]).find_shortest_path
