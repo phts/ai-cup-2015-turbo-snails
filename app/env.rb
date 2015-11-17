@@ -94,7 +94,7 @@ class Env
       sws += filter_corners(path[1..-2])
     end
     convert_to_waypoints!(sws)
-    assign_directions(sws)
+    assign_directions!(sws)
     sws
   end
 
@@ -102,7 +102,7 @@ class Env
     sws.map! { |t| Waypoint.from_tile(t) }
   end
 
-  def assign_directions(sws)
+  def assign_directions!(sws)
     (sws+[sws.first]).each_cons(2) do |swp|
       d = swp[0].delta(swp[1])
       if d[:x] > 0
