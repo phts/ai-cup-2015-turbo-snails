@@ -26,7 +26,7 @@ class Tile
   end
 
   def Tile.at(x, y, empty_is_nil = false)
-    return nil if x < 0 || x >= Env.world.tiles_x_y.count || y < 0 || y >= Env.world.tiles_x_y.count
+    return nil if x < 0 || x >= Env.world.width || y < 0 || y >= Env.world.height
     tile = Tile.new(x, y, Env.world.tiles_x_y[x][y])
     return nil if empty_is_nil && tile.type == TileType::EMPTY
     tile
