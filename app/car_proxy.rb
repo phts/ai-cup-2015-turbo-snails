@@ -1,7 +1,10 @@
 require './model/car'
 require_relative 'proxy'
+require_relative 'env'
 
 class CarProxy < Proxy
+
+  ANGLE_FOR_OTHER_CARS_IN_FRONT = 0.2
 
   def initialize(car)
     super(car)
@@ -21,6 +24,19 @@ class CarProxy < Proxy
 
   def next_to?(tile)
     self.tile.accessible_neighbour?(tile)
+  end
+
+  def me?(car)
+    Env.world.players.find{ |p| p.id == car.player_id }.me
+  end
+
+  def has_other_cars_in_front?
+    Env.world.cars.each do |car|
+      next if me?(car)
+      return true if subject.angle_to_unit(car).abs < ANGLE_FOR_OTHER_CARS_IN_FRONT &&
+                     subject.distance_to_unit(car) < Env.game.track_tile_size*5
+    end
+    false
   end
 
 end

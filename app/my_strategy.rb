@@ -26,6 +26,10 @@ class MyStrategy
       Env.move.spill_oil = true
     end
 
+    if Env.me.has_other_cars_in_front?
+      Env.move.throw_projectile = true
+    end
+
     if Env.got_stuck?
       Env.repare_position
       return
