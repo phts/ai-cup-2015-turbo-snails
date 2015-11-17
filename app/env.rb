@@ -39,6 +39,10 @@ class Env
     d[:x] == 0 ? d[:y].abs : d[:x].abs
   end
 
+  def started?
+    Env.world.tick > Env.game.initial_freeze_duration_ticks
+  end
+
   class << self
     extend Forwardable
     def_delegators :instance, *Env.instance_methods(false)

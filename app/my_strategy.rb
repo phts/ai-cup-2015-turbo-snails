@@ -26,7 +26,7 @@ class MyStrategy
       Env.move.spill_oil = true
     end
 
-    if Env.world.tick > Env.game.initial_freeze_duration_ticks
+    if Env.started?
       if Env.tile_count_before_next_subwaypoint > 2
         Env.move.use_nitro = true
       end
