@@ -18,7 +18,8 @@ class MyStrategy
     Env.move.wheel_turn = angel_to_waypoint * 32 / Math::PI
 
     if Env.me.tile.accessible_neighbour?(waypoint) && waypoint.corner?
-      Env.move.brake = true if Env.me.speed > 15
+      Env.move.brake = true if Env.me.speed > 14
+      Env.move.engine_power = -1 if Env.me.speed > 20
     end
 
     if Env.world.tick > Env.game.initial_freeze_duration_ticks
