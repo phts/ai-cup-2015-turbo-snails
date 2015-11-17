@@ -96,7 +96,7 @@ class Env
     end
     sws << ws[-1]
     path = PathFinder.new(ws[-1], ws[0]).find_shortest_path
-    sws += filter_corners(path)
+    sws += filter_corners(path[1..-2])
     convert_to_waypoints!(sws)
     assign_directions(sws)
     sws
