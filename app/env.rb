@@ -88,15 +88,11 @@ class Env
   def create_subwaypoints
     sws = []
     ws = Env.world.waypoints.map {|p| Tile.at(p[0], p[1])}
-    ws.each_cons(2) do |p|
+    (ws+[ws[0]]).each_cons(2) do |p|
       sws << p[0]
       path = PathFinder.new(p[0], p[1]).find_shortest_path
-      path_without_start_and_end = path[1..-2]
-      sws += filter_corners(path_without_start_and_end)
+      sws += filter_corners(path[1..-2])
     end
-    sws << ws[-1]
-    path = PathFinder.new(ws[-1], ws[0]).find_shortest_path
-    sws += filter_corners(path[1..-2])
     convert_to_waypoints!(sws)
     assign_directions(sws)
     sws
