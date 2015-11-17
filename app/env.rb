@@ -32,6 +32,12 @@ class Env
     subwaypoints[@next_subwaypoint_index]
   end
 
+  def tile_count_before_next_subwaypoint
+    # TODO: should count not until next_subwaypoint but next corner
+    d = Env.me.tile.delta(next_subwaypoint)
+    d[:x] == 0 ? d[:y].abs : d[:x].abs
+  end
+
   class << self
     extend Forwardable
     def_delegators :instance, *Env.instance_methods(false)

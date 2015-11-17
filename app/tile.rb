@@ -200,4 +200,8 @@ class Tile
     CORNER_TYPES.include?(type)
   end
 
+  def delta(another)
+    {x: x - another.x, y: y - another.y}
+  end
+
 end

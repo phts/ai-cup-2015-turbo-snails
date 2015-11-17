@@ -20,6 +20,12 @@ class MyStrategy
     if Env.me.tile.accessible_neighbour?(waypoint) && waypoint.corner?
       Env.move.brake = true if Env.me.speed > 15
     end
+
+    if Env.world.tick > Env.game.initial_freeze_duration_ticks
+      if Env.tile_count_before_next_subwaypoint > 2
+        Env.move.use_nitro = true
+      end
+    end
   end
 
 end
