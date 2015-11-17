@@ -26,6 +26,10 @@ class MyStrategy
       Env.move.spill_oil = true
     end
 
+    if Env.got_stuck?
+      Env.repare_position
+      return
+    end
     if Env.started?
       if Env.tile_count_before_next_subwaypoint > 2
         Env.move.use_nitro = true
