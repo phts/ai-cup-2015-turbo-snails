@@ -4,6 +4,12 @@ require_relative 'tile'
 
 class Waypoint < Tile
   attr_accessor :next_direction
+  attr_accessor :from_direction
+  attr_accessor :original
+
+  def Waypoint.at(*args)
+    Waypoint.from_tile(super(*args))
+  end
 
   def Waypoint.from_tile(tile)
     Waypoint.new(tile.x, tile.y, tile.type)
@@ -67,5 +73,13 @@ class Waypoint < Tile
     end
 
     [px, py]
+  end
+
+  def corner?
+    return true if super
+    return !(from_direction == :bottom && next_direction == :top ||
+             from_direction == :top && next_direction == :bottom ||
+             from_direction == :left && next_direction == :right ||
+             from_direction == :right && next_direction == :left)
   end
 end

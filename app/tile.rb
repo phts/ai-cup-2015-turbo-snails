@@ -7,11 +7,13 @@ class Tile
                    TileType::RIGHT_TOP_CORNER,
                    TileType::LEFT_BOTTOM_CORNER,
                    TileType::RIGHT_BOTTOM_CORNER,
-                   TileType::LEFT_HEADED_T,
-                   TileType::RIGHT_HEADED_T,
-                   TileType::TOP_HEADED_T,
-                   TileType::BOTTOM_HEADED_T,
                  ]
+  T_HEADED_TYPES = [
+                     TileType::LEFT_HEADED_T,
+                     TileType::RIGHT_HEADED_T,
+                     TileType::TOP_HEADED_T,
+                     TileType::BOTTOM_HEADED_T,
+                   ]
 
   INNER_ACCESSIBLE_PADDING = 140
 
@@ -164,8 +166,20 @@ class Tile
     n
   end
 
+  def straight?
+    type == TileType::VERTICAL || type == TileType::HORIZONTAL
+  end
+
   def corner?
     CORNER_TYPES.include?(type)
+  end
+
+  def t_headed?
+    T_HEADED_TYPES.include?(type)
+  end
+
+  def crossroads?
+    type == TileType::CROSSROADS
   end
 
   def delta(another)
