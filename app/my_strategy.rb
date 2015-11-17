@@ -22,6 +22,10 @@ class MyStrategy
       Env.move.engine_power = -1 if Env.me.speed > 20
     end
 
+    if Env.me.tile.corner?
+      Env.move.spill_oil = true
+    end
+
     if Env.world.tick > Env.game.initial_freeze_duration_ticks
       if Env.tile_count_before_next_subwaypoint > 2
         Env.move.use_nitro = true
