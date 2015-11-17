@@ -51,16 +51,16 @@ class Waypoint < Tile
       elsif type == TileType::RIGHT_BOTTOM_CORNER
         px = rc[:inner_top_left_x]
         py = rc[:inner_top_left_y]
-      elsif type == TileType::LEFT_HEADED_T
+      elsif type == TileType::RIGHT_HEADED_T
         px = rc[:inner_right_x]
         py = next_direction == :top ? rc[:inner_top_y] : rc[:inner_bottom_y]
-      elsif type == TileType::RIGHT_HEADED_T
+      elsif type == TileType::LEFT_HEADED_T
         px = rc[:inner_left_x]
         py = next_direction == :top ? rc[:inner_top_y] : rc[:inner_bottom_y]
-      elsif type == TileType::TOP_HEADED_T
+      elsif type == TileType::BOTTOM_HEADED_T
         px = next_direction == :left ? rc[:inner_left_x] : rc[:inner_right_x]
         py = rc[:inner_bottom_y]
-      elsif type == TileType::BOTTOM_HEADED_T
+      elsif type == TileType::TOP_HEADED_T
         px = next_direction == :left ? rc[:inner_left_x] : rc[:inner_right_x]
         py = rc[:inner_top_y]
       end
