@@ -1,5 +1,6 @@
 require 'singleton'
 require 'forwardable'
+require_relative 'car_proxy'
 
 class Env
   include Singleton
@@ -10,7 +11,7 @@ class Env
   attr_reader :move
 
   def update(me, world, game, move)
-    @me = me
+    @me = CarProxy.new(me)
     @world = world
     @game = game
     @move = move
