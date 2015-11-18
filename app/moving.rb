@@ -8,7 +8,7 @@ class Moving
 
   TICK_COUNT_WHEN_GOT_STUCK = 40
   TICK_COUNT_LIMIT_WHEN_GOT_STUCK = 200
-  REPARING_POSITION_TICK_COUNT = 100
+  REPARING_POSITION_TICK_COUNT = 150
 
   def initialize
     @low_speed_count = 0
@@ -45,6 +45,10 @@ class Moving
     Env.move.engine_power = -1.0
     Env.move.wheel_turn = -Env.move.wheel_turn
     Env.move.brake = false
+    if REPARING_POSITION_TICK_COUNT - @reparing_position_ticks < 30
+      Env.move.engine_power = 1.0
+      Env.move.brake = true
+    end
   end
 
   class << self
