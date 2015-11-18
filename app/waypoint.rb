@@ -21,39 +21,20 @@ class Waypoint < Tile
 
   def preferable_for_me_real_coords
     rc = real_coords
-    if Env.me.x < rc[:left_x]
-      px = rc[:left_x]
-    elsif Env.me.x > rc[:right_x]
-      px = rc[:right_x]
-    else
-      if Env.me.tile.accessible_neighbour?(self)
-        px = if Env.me.x < rc[:inner_left_x]
-               rc[:inner_left_x]
-             elsif Env.me.x > rc[:inner_right_x]
-               rc[:inner_right_x]
-             else
-               Env.me.x
-             end
-      else
-        px = rc[:center_x]
-      end
-    end
-    if Env.me.y < rc[:top_y]
-      py = rc[:top_y]
-    elsif Env.me.y > rc[:bottom_y]
-      py = rc[:bottom_y]
-    else
-      if Env.me.tile.accessible_neighbour?(self)
-        py = if Env.me.y < rc[:inner_top_y]
-               rc[:inner_top_y]
-             elsif Env.me.y > rc[:inner_bottom_y]
-               rc[:inner_bottom_y]
-             else
-               Env.me.y
-             end
-      else
-        py = rc[:center_y]
-      end
+
+    case from_direction
+    when :top
+      px = rc[:center_x]
+      py = rc[:inner_top_y]
+    when :right
+      px = rc[:inner_right_x]
+      py = rc[:center_y]
+    when :bottom
+      px = rc[:center_x]
+      py = rc[:inner_bottom_y]
+    when :left
+      px = rc[:inner_left_x]
+      py = rc[:center_y]
     end
 
     if Env.me.next_to?(self)
@@ -81,6 +62,21 @@ class Waypoint < Tile
       elsif type == TileType::TOP_HEADED_T
         px = next_direction == :left ? rc[:inner_left_x] : rc[:inner_right_x]
         py = rc[:inner_top_y]
+      else
+        px = if Env.me.x < rc[:inner_left_x]
+               rc[:inner_left_x]
+             elsif Env.me.x > rc[:inner_right_x]
+               rc[:inner_right_x]
+             else
+               Env.me.x
+             end
+        py = if Env.me.y < rc[:inner_top_y]
+               rc[:inner_top_y]
+             elsif Env.me.y > rc[:inner_bottom_y]
+               rc[:inner_bottom_y]
+             else
+               Env.me.y
+             end
       end
     end
 
