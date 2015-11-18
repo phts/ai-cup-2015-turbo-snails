@@ -5,6 +5,7 @@ require './model/world'
 require_relative 'env'
 require_relative 'tile'
 require_relative 'subwaypoints'
+require_relative 'moving'
 
 class MyStrategy
 
@@ -31,8 +32,8 @@ class MyStrategy
       Env.move.throw_projectile = true
     end
 
-    if Env.got_stuck?
-      Env.repare_position
+    if Moving.got_stuck?
+      Moving.repare_position
       return
     end
     if Env.started?
