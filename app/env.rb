@@ -56,6 +56,9 @@ class Env
 
   def repare_position
     @reparing_position_ticks += 1
+    if @reparing_position_ticks == REPARING_POSITION_TICK_COUNT
+      Subwaypoints.use_rebuilt_path_to_next(Env.me.tile)
+    end
     Env.move.engine_power = -1.0
     Env.move.wheel_turn = -Env.move.wheel_turn
     Env.move.brake = false
