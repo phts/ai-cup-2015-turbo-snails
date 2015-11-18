@@ -27,7 +27,13 @@ class Waypoint < Tile
       px = rc[:right_x]
     else
       if Env.me.tile.accessible_neighbour?(self)
-        px = Env.me.x
+        px = if Env.me.x < rc[:inner_left_x]
+               rc[:inner_left_x]
+             elsif Env.me.x > rc[:inner_right_x]
+               rc[:inner_right_x]
+             else
+               Env.me.x
+             end
       else
         px = rc[:center_x]
       end
@@ -38,7 +44,13 @@ class Waypoint < Tile
       py = rc[:bottom_y]
     else
       if Env.me.tile.accessible_neighbour?(self)
-        py = Env.me.y
+        py = if Env.me.y < rc[:inner_top_y]
+               rc[:inner_top_y]
+             elsif Env.me.y > rc[:inner_bottom_y]
+               rc[:inner_bottom_y]
+             else
+               Env.me.y
+             end
       else
         py = rc[:center_y]
       end
