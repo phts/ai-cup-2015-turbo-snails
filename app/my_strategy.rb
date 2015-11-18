@@ -4,13 +4,14 @@ require './model/move'
 require './model/world'
 require_relative 'env'
 require_relative 'tile'
+require_relative 'subwaypoints'
 
 class MyStrategy
 
   def move(me, world, game, move)
     Env.update(me, world, game, move)
 
-    waypoint = Env.next_subwaypoint
+    waypoint = Subwaypoints.next
 
     angel_to_waypoint = Env.me.angle_to(*waypoint.preferable_for_me_real_coords)
 
@@ -35,7 +36,7 @@ class MyStrategy
       return
     end
     if Env.started?
-      if Env.tile_count_before_next_subwaypoint > 2
+      if Subwaypoints.tile_count_before_next > 2
         Env.move.use_nitro = true
       end
     end
