@@ -18,6 +18,7 @@ class Moving
   def got_stuck?
     return false unless Env.started?
     if reparing_position?
+      @low_speed_count = 0
       if @reparing_position_ticks > REPARING_POSITION_TICK_COUNT
         @reparing_position_ticks = 0
         return false
