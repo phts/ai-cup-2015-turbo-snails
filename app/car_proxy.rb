@@ -34,7 +34,7 @@ class CarProxy < Proxy
     Env.world.cars.each do |car|
       next if me?(car)
       return true if subject.angle_to_unit(car).abs < ANGLE_FOR_OTHER_CARS_IN_FRONT &&
-                     subject.distance_to_unit(car) < Env.game.track_tile_size*5
+                     subject.distance_to_unit(car) < Env.game.track_tile_size*2
     end
     false
   end
