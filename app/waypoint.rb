@@ -63,23 +63,31 @@ class Waypoint < Tile
     if Env.me.next_to?(self)
       if from_direction == :right && next_direction == :bottom ||
          from_direction == :bottom && next_direction == :right
-        px = rc[:inner_bottom_right_x]
-        py = rc[:inner_bottom_right_y]
+        if Env.me.distance_to(rc[:inner_bottom_right_x], rc[:inner_bottom_right_y]) < Env.game.track_tile_size
+          px = rc[:inner_bottom_right_x]
+          py = rc[:inner_bottom_right_y]
+        end
 
       elsif from_direction == :bottom && next_direction == :left ||
             from_direction == :left && next_direction == :bottom
-        px = rc[:inner_bottom_left_x]
-        py = rc[:inner_bottom_left_y]
+        if Env.me.distance_to(rc[:inner_bottom_left_x], rc[:inner_bottom_left_y]) < Env.game.track_tile_size
+          px = rc[:inner_bottom_left_x]
+          py = rc[:inner_bottom_left_y]
+        end
 
       elsif from_direction == :top && next_direction == :right ||
             from_direction == :right && next_direction == :top
-        px = rc[:inner_top_right_x]
-        py = rc[:inner_top_right_y]
+        if Env.me.distance_to(rc[:inner_top_right_x], rc[:inner_top_right_y]) < Env.game.track_tile_size
+          px = rc[:inner_top_right_x]
+          py = rc[:inner_top_right_y]
+        end
 
       elsif from_direction == :top && next_direction == :left ||
             from_direction == :left && next_direction == :top
-        px = rc[:inner_top_left_x]
-        py = rc[:inner_top_left_y]
+        if Env.me.distance_to(rc[:inner_top_left_x], rc[:inner_top_left_y]) < Env.game.track_tile_size
+          px = rc[:inner_top_left_x]
+          py = rc[:inner_top_left_y]
+        end
       end
     end
 

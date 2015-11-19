@@ -15,7 +15,7 @@ class Tile
                      TileType::BOTTOM_HEADED_T,
                    ]
 
-  INNER_ACCESSIBLE_PADDING = 140
+  INNER_ACCESSIBLE_PADDING = 160
 
   attr_reader :type
   attr_reader :x

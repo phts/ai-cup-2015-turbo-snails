@@ -13,15 +13,18 @@ class MyStrategy
     Env.update(me, world, game, move)
 
     waypoint = Subwaypoints.next
+    coords = waypoint.preferable_for_me_real_coords
 
-    angel_to_waypoint = Env.me.angle_to(*waypoint.preferable_for_me_real_coords)
+    angel_to_waypoint = Env.me.angle_to(*coords)
 
     Env.move.engine_power = 1
     Env.move.wheel_turn = angel_to_waypoint * 32 / Math::PI
 
     if Env.me.next_to?(waypoint) && waypoint.corner?
-      Env.move.brake = true if Env.me.speed > 14
-      Env.move.engine_power = -1 if Env.me.speed > 20
+      if Env.me.distance_to(*coords) < Env.game.track_tile_size
+        Env.move.brake = true if Env.me.speed > 14
+        Env.move.engine_power = -1 if Env.me.speed > 20
+      end
     end
 
     if Env.me.tile.corner?
