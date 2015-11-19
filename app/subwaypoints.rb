@@ -50,6 +50,9 @@ class Subwaypoints
     assign_directions!(@rebuilt_subwaypoints, subwaypoints[(@next_subwaypoint_index+1) % subwaypoints.count])
     @rebuilt_subwaypoints.slice!(0)
     filter_corners!(@rebuilt_subwaypoints)
+    if @rebuilt_subwaypoints.empty?
+      @rebuilt_subwaypoints << end_tile
+    end
   end
 
   class << self
