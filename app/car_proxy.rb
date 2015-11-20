@@ -4,7 +4,7 @@ require_relative 'env'
 
 class CarProxy < Proxy
 
-  ANGLE_FOR_OTHER_CARS_IN_FRONT = 0.2
+  ANGLE_FOR_OTHER_CARS_IN_FRONT = 0.174
 
   def initialize(car)
     super(car)
