@@ -5,7 +5,10 @@ set -e
 cd ./test/local-runner/
 ./local-runner-sync.sh
 
-sleep 3s
+if [ -n "$1" ]
+then
+  sleep $1
+fi
 
 cd ../../
 ./run.sh
