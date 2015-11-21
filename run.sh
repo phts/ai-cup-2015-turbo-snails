@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 cd app/
 ruby ../runner.rb

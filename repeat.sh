@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -x
+set -e
 
 cd ./test/repeater/
 ./repeater.sh

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -e
 
 cd ./test/local-runner/
 ./local-runner-sync.sh

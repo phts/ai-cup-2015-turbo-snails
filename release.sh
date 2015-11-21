@@ -19,8 +19,6 @@ check_unsaved_changes() {
     return 1
 }
 
-set -x
-
 prev_version_tag=`git describe --tags --abbrev=0 --match "v[0-9]*"` # filter only major version tags
 prev_version=`echo $prev_version_tag | cut -c 2-10` # cut off "v" symbol
 new_version=$(($prev_version+1))
