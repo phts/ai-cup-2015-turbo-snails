@@ -11,6 +11,7 @@ class MyStrategy
 
   def move(me, world, game, move)
     Env.update(me, world, game, move)
+    return if Env.me.destroyed?
 
     waypoint = Subwaypoints.next
     coords = waypoint.preferable_for_me_real_coords

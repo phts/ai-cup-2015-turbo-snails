@@ -39,4 +39,8 @@ class CarProxy < Proxy
     false
   end
 
+  def destroyed?
+    Env.me.durability == 0
+  end
+
 end
