@@ -36,8 +36,8 @@ class Subwaypoints
     subwaypoints[@next_subwaypoint_index]
   end
 
-  def tile_count_before_next
-    d = Env.me.tile.delta(self.next)
+  def tile_count_before_corner
+    d = Env.me.tile.delta(next_corner)
     d[:x] == 0 ? d[:y].abs : d[:x].abs
   end
 
@@ -123,6 +123,17 @@ class Subwaypoints
   def next_original_waypoint
     subwaypoints.cycled_each(@next_subwaypoint_index) do |w|
       return w if w.original
+    end
+  end
+
+  def next_corner
+    if @rebuilt_subwaypoints
+      @rebuilt_subwaypoints.cycled_each(@next_rebuilt_subwaypoint_index) do |w|
+        return w if w.corner?
+      end
+    end
+    subwaypoints.cycled_each(@next_subwaypoint_index) do |w|
+      return w if w.corner?
     end
   end
 

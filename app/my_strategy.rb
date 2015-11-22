@@ -43,7 +43,7 @@ class MyStrategy
       return
     end
     if Env.started?
-      if Subwaypoints.tile_count_before_next > 2
+      if Subwaypoints.tile_count_before_corner > 2
         Env.move.use_nitro = true
       end
     end
