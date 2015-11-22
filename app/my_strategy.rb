@@ -21,8 +21,9 @@ class MyStrategy
     Env.move.engine_power = 1
     Env.move.wheel_turn = angel_to_waypoint * 32 / Math::PI
 
-    if Env.me.next_to?(waypoint) && waypoint.corner?
-      if Env.me.distance_to(*coords) < Env.game.track_tile_size
+    if waypoint.corner?
+      if Env.me.distance_to(*coords) < Env.game.track_tile_size ||
+         Env.me.using_nitro? && Env.me.distance_to(*coords) < Env.game.track_tile_size*2
         Env.move.brake = true if Env.me.speed > 14
         Env.move.engine_power = -1 if Env.me.speed > 20
       end
