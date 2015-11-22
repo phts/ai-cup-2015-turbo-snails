@@ -69,9 +69,11 @@ class Subwaypoints
   def create_subwaypoints
     sws = []
     ws = Env.world.waypoints.map {|p| Waypoint.at(p[0], p[1])}
+    previous_last_tile = nil
     (ws+[ws[0]]).each_cons(2) do |p|
       sws << p[0]
-      path = PathFinder.new(p[0], p[1]).find_shortest_path
+      path = PathFinder.new(p[0], p[1]).find_shortest_path(previous_last_tile)
+      previous_last_tile = path[-2]
       sws += ignore_straight(path[1..-2])
     end
     convert_to_waypoints!(sws)
