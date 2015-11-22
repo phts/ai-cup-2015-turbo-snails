@@ -8,6 +8,7 @@ class CarProxy < Proxy
 
   def initialize(car)
     super(car)
+    @using_nitro = car.engine_power == 2
   end
 
   def speed
@@ -41,6 +42,10 @@ class CarProxy < Proxy
 
   def destroyed?
     Env.me.durability == 0
+  end
+
+  def using_nitro?
+    @using_nitro
   end
 
 end
