@@ -20,7 +20,7 @@ class MyStrategy
     angel_to_waypoint = Env.me.angle_to(*coords)
 
     Env.move.engine_power = 1
-    Env.move.wheel_turn = angel_to_waypoint * 32 / Math::PI
+    Env.move.wheel_turn = angel_to_waypoint * 5
 
     if waypoint.corner?
       if Env.me.distance_to(*coords) < Env.game.track_tile_size ||
