@@ -121,11 +121,8 @@ class Subwaypoints
   end
 
   def next_original_waypoint
-    i = @next_subwaypoint_index
-    while true
-      w = subwaypoints[i]
+    subwaypoints.cycled_each(@next_subwaypoint_index) do |w|
       return w if w.original
-      i = (i+1) % subwaypoints.count
     end
   end
 
