@@ -1,0 +1,3 @@
+[submodule "test/local-runner"]
+	path = test/local-runner
+	url = https://github.com/phts/local-runner.git
