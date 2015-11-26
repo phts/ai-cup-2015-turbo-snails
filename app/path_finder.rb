@@ -22,28 +22,28 @@ class PathFinder
         nbs = node[:self].accessible_neighbours
 
         top_neighbour = nbs[:top]
-        if top_neighbour && !tree_contains_tile?(top_neighbour) &&
+        if top_neighbour && !tree_contains_tile?(top_neighbour, level) &&
            (exclude_path_with_tile.nil? || !top_neighbour.equals?(exclude_path_with_tile))
           top_neighbour_node = {self: top_neighbour, parent: node}
           return top_neighbour_node if top_neighbour.equals?(@end_tile)
           level << top_neighbour_node
         end
         right_neighbour = nbs[:right]
-        if right_neighbour && !tree_contains_tile?(right_neighbour) &&
+        if right_neighbour && !tree_contains_tile?(right_neighbour, level) &&
            (exclude_path_with_tile.nil? || !right_neighbour.equals?(exclude_path_with_tile))
           right_neighbour_node = {self: right_neighbour, parent: node}
           return right_neighbour_node if right_neighbour.equals?(@end_tile)
           level << right_neighbour_node
         end
         bottom_neighbour = nbs[:bottom]
-        if bottom_neighbour && !tree_contains_tile?(bottom_neighbour) &&
+        if bottom_neighbour && !tree_contains_tile?(bottom_neighbour, level) &&
            (exclude_path_with_tile.nil? || !bottom_neighbour.equals?(exclude_path_with_tile))
           bottom_neighbour_node = {self: bottom_neighbour, parent: node}
           return bottom_neighbour_node if bottom_neighbour.equals?(@end_tile)
           level << bottom_neighbour_node
         end
         left_neighbour = nbs[:left]
-        if left_neighbour && !tree_contains_tile?(left_neighbour) &&
+        if left_neighbour && !tree_contains_tile?(left_neighbour, level) &&
            (exclude_path_with_tile.nil? || !left_neighbour.equals?(exclude_path_with_tile))
           left_neighbour_node = {self: left_neighbour, parent: node}
           return left_neighbour_node if left_neighbour.equals?(@end_tile)
@@ -64,8 +64,8 @@ class PathFinder
     path.reverse
   end
 
-  def tree_contains_tile?(tile)
-    @tree.each do |level|
+  def tree_contains_tile?(tile, current_level)
+    ([current_level]+@tree).each do |level|
       return true if level.index{ |node| tile.equals?(node[:self]) }
     end
     false
