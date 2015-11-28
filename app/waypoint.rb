@@ -1,6 +1,7 @@
 require './model/tile_type'
 require_relative 'env'
 require_relative 'tile'
+require_relative 'subwaypoints'
 
 class Waypoint < Tile
   attr_accessor :next_direction
@@ -22,8 +23,10 @@ class Waypoint < Tile
 
   def preferable_for_me_real_coords
     rc = real_coords
+    current_tile = Env.me.tile
+    self_next_to_me = self.accessible_neighbour?(current_tile)
 
-    if Env.me.next_to?(self)
+    if self_next_to_me
       if from_direction == :top && next_direction == :bottom ||
          from_direction == :bottom && next_direction == :top ||
          from_direction == :left && next_direction == :right ||
@@ -61,7 +64,7 @@ class Waypoint < Tile
       py = rc[:center_y]
     end
 
-    if Env.me.next_to?(self)
+    if self_next_to_me
       if from_direction == :right && next_direction == :bottom ||
          from_direction == :bottom && next_direction == :right
         if Env.me.distance_to(rc[:inner_bottom_right_x], rc[:inner_bottom_right_y]) < Env.game.track_tile_size
@@ -88,6 +91,62 @@ class Waypoint < Tile
         if Env.me.distance_to(rc[:inner_top_left_x], rc[:inner_top_left_y]) < Env.game.track_tile_size
           px = rc[:inner_top_left_x]
           py = rc[:inner_top_left_y]
+        end
+      end
+    end
+
+    if self_next_to_me
+      wp_after_self = Subwaypoints[Subwaypoints.next_subwaypoint_index+1]
+      wp_after_after_self = Subwaypoints[Subwaypoints.next_subwaypoint_index+2]
+      wp_before_self = Subwaypoints[Subwaypoints.next_subwaypoint_index-1]
+
+      # Check if zigzag then move straight through all corners
+      if wp_before_self.equals?(current_tile) &&
+         self.accessible_neighbour?(wp_before_self) && self.accessible_neighbour?(wp_after_self) &&
+         wp_after_self.accessible_neighbour?(wp_after_after_self) &&
+         wp_after_self.corner? && wp_before_self.corner? &&
+         wp_after_after_self.from_direction == self.from_direction && wp_after_after_self.next_direction == self.next_direction
+        @enable_brake = false
+        if self.from_direction == :left && self.next_direction == :top && wp_after_self.next_direction == :right
+          #  ╔
+          # →╝
+          px = rc[:center_x]
+          py = rc[:top_y]
+        elsif self.from_direction == :left && self.next_direction == :bottom && wp_after_self.next_direction == :right
+          # →╗
+          #  ╚
+          px = rc[:center_x]
+          py = rc[:bottom_y]
+        elsif self.from_direction == :bottom && self.next_direction == :right && wp_after_self.next_direction == :top
+          # ╔╝
+          # ↑
+          px = rc[:right_x]
+          py = rc[:center_y]
+        elsif self.from_direction == :bottom && self.next_direction == :left && wp_after_self.next_direction == :top
+          # ╚╗
+          #  ↑
+          px = rc[:left_x]
+          py = rc[:center_y]
+        elsif self.from_direction == :top && self.next_direction == :right && wp_after_self.next_direction == :bottom
+          # ↓
+          # ╚╗
+          px = rc[:right_x]
+          py = rc[:center_y]
+        elsif self.from_direction == :top && self.next_direction == :left && wp_after_self.next_direction == :bottom
+          #  ↓
+          # ╔╝
+          px = rc[:left_x]
+          py = rc[:center_y]
+        elsif self.from_direction == :right && self.next_direction == :bottom && wp_after_self.next_direction == :left
+          # ╔←
+          # ╝
+          px = rc[:center_x]
+          py = rc[:bottom_y]
+        elsif self.from_direction == :right && self.next_direction == :top && wp_after_self.next_direction == :left
+          # ╗
+          # ╚←
+          px = rc[:center_x]
+          py = rc[:top_y]
         end
       end
     end

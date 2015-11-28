@@ -8,6 +8,8 @@ require_relative 'waypoint'
 class Subwaypoints
   include Singleton
 
+  attr_reader :next_subwaypoint_index
+
   def initialize
     @next_subwaypoint_index = 0
     @rebuilt_subwaypoints = nil
@@ -34,6 +36,10 @@ class Subwaypoints
       return @rebuilt_subwaypoints[@next_rebuilt_subwaypoint_index]
     end
     subwaypoints[@next_subwaypoint_index]
+  end
+
+  def [](index)
+    subwaypoints[index % subwaypoints.count]
   end
 
   def tile_count_before_corner
