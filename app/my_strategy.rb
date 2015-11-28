@@ -22,7 +22,7 @@ class MyStrategy
     Env.move.engine_power = 1
     Env.move.wheel_turn = angel_to_waypoint * 5
 
-    if waypoint.corner?
+    if waypoint.enable_brake?
       if Env.me.distance_to(*coords) < Env.game.track_tile_size ||
          Env.me.using_nitro? && Env.me.distance_to(*coords) < Env.game.track_tile_size*2
         Env.move.brake = true if Env.me.speed > 14
