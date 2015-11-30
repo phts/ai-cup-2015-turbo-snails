@@ -19,8 +19,12 @@ class Env
     Subwaypoints.update
   end
 
+  def after_tick?(tick)
+    Env.world.tick > tick
+  end
+
   def started?
-    Env.world.tick > Env.game.initial_freeze_duration_ticks
+    Env.after_tick?(Env.game.initial_freeze_duration_ticks)
   end
 
   class << self

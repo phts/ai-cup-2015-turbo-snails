@@ -42,7 +42,7 @@ class MyStrategy
       Moving.repare_position
       return
     end
-    if Env.started?
+    if Env.after_tick?(250)
       if Subwaypoints.tile_count_before_corner > 3
         Env.move.use_nitro = true
       end
