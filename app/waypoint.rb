@@ -18,7 +18,7 @@ class Waypoint < Tile
 
   def initialize(*args)
     super(*args)
-    @enable_brake = self.corner?
+    @enable_brake = true
   end
 
   def preferable_for_me_real_coords
@@ -211,6 +211,7 @@ class Waypoint < Tile
   end
 
   def enable_brake?
-    !!@enable_brake
+    return false unless !!@enable_brake
+    self.corner?
   end
 end
