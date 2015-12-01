@@ -12,15 +12,15 @@ class CarProxy < Proxy
   end
 
   def speed
-    Math.hypot(subject.speed_x, subject.speed_y)
+    @speed || @speed = Math.hypot(subject.speed_x, subject.speed_y)
   end
 
   def next_waypoint
-    Tile.at(subject.next_waypoint_x, subject.next_waypoint_y)
+    @next_waypoint || @next_waypoint = Tile.at(subject.next_waypoint_x, subject.next_waypoint_y)
   end
 
   def tile
-    Tile.under(subject)
+    @tile || @tile = Tile.under(subject)
   end
 
   def next_to?(tile)
@@ -49,7 +49,7 @@ class CarProxy < Proxy
   end
 
   def nearest(units)
-    units.sort_by{|u| u.distance_to(subject.x, subject.y) }.first
+    @nearest || @nearest = units.sort_by{|u| u.distance_to(subject.x, subject.y) }.first
   end
 
 end

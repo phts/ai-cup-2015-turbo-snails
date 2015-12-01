@@ -59,9 +59,9 @@ class PathFinder
     path << node[:self]
     until node[:parent].nil?
       node = node[:parent]
-      path << node[:self]
+      path.unshift node[:self]
     end
-    path.reverse
+    path
   end
 
   def tree_contains_tile?(tile, current_level)

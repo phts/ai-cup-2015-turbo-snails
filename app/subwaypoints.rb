@@ -35,8 +35,8 @@ class Subwaypoints
     if @rebuilt_subwaypoints
       return @rebuilt_subwaypoints[@next_rebuilt_subwaypoint_index]
     end
-    if bonus_en_route
-      return Waypoint.with_bonus(bonus_en_route)
+    if bonus = bonus_en_route
+      return Waypoint.with_bonus(bonus)
     end
     subwaypoints[@next_subwaypoint_index]
   end
@@ -151,8 +151,9 @@ class Subwaypoints
   end
 
   def bonus_en_route
-    tiles_between(Env.me.tile, self[@next_subwaypoint_index])[1..-3].each do |t|
-      return Env.me.nearest(t.bonuses) if t.bonuses.any?
+    tiles_between(Env.me.tile, subwaypoints[@next_subwaypoint_index])[1..-3].each do |t|
+      bonuses = t.bonuses
+      return Env.me.nearest(bonuses) if bonuses.any?
     end
     nil
   end
