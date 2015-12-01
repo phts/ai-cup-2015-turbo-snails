@@ -7,6 +7,9 @@ class Waypoint < Tile
   attr_accessor :next_direction
   attr_accessor :from_direction
   attr_accessor :original
+  attr_accessor :selected_bonus
+
+  attr_writer :enable_brake
 
   def Waypoint.at(*args)
     Waypoint.from_tile(super(*args))
@@ -14,6 +17,13 @@ class Waypoint < Tile
 
   def Waypoint.from_tile(tile)
     Waypoint.new(tile.x, tile.y, tile.type)
+  end
+
+  def Waypoint.with_bonus(bonus)
+    w = Waypoint.from_tile(Tile.under(bonus))
+    w.enable_brake = false
+    w.selected_bonus = bonus
+    w
   end
 
   def initialize(*args)
@@ -25,6 +35,8 @@ class Waypoint < Tile
     rc = real_coords
     current_tile = Env.me.tile
     self_next_to_me = self.accessible_neighbour?(current_tile)
+    px = rc[:center_x]
+    py = rc[:center_y]
 
     if self_next_to_me
       if from_direction == :top && next_direction == :bottom ||
@@ -196,6 +208,13 @@ class Waypoint < Tile
             py = rc[:bottom_y]
           end
         end
+      end
+    end
+
+    if nearest_bonus = selected_bonus || Env.me.nearest(bonuses)
+      if nearest_bonus.distance_to(px, py) < Env.game.track_tile_size/3
+        px = nearest_bonus.x
+        py = nearest_bonus.y
       end
     end
 

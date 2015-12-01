@@ -186,4 +186,8 @@ class Tile
     {x: x - another.x, y: y - another.y}
   end
 
+  def bonuses
+    Env.world.bonuses.select{ |b| contains?(b) }
+  end
+
 end

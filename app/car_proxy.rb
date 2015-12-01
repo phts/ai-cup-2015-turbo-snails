@@ -48,4 +48,8 @@ class CarProxy < Proxy
     @using_nitro
   end
 
+  def nearest(units)
+    units.sort_by{|u| u.distance_to(subject.x, subject.y) }.first
+  end
+
 end
