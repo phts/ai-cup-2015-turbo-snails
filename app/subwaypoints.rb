@@ -147,7 +147,19 @@ class Subwaypoints
   end
 
   def tiles_between(tile1, tile2)
-    PathFinder.new(tile1, tile2).find_shortest_path
+    tiles = []
+    if tile1.x == tile2.x
+      tile1.y.step(tile2.y, (tile1.y < tile2.y ? 1 : -1)) do |y|
+        tiles << Tile.at(tile1.x, y)
+      end
+    elsif tile1.y == tile2.y
+      tile1.x.step(tile2.x, (tile1.x < tile2.x ? 1 : -1)) do |x|
+        tiles << Tile.at(x, tile1.y)
+      end
+    else
+      tiles = PathFinder.new(tile1, tile2).find_shortest_path
+    end
+    tiles
   end
 
   def bonus_en_route
