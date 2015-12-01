@@ -11,6 +11,8 @@ require_relative 'moving'
 class MyStrategy
 
   def move(me, world, game, move)
+    return if world.players.count == 2
+
     Env.update(me, world, game, move)
     return if Env.me.destroyed?
 
