@@ -35,8 +35,6 @@ class Waypoint < Tile
     rc = real_coords
     current_tile = Env.me.tile
     self_next_to_me = self.accessible_neighbour?(current_tile)
-    px = rc[:center_x]
-    py = rc[:center_y]
 
     if self_next_to_me
       if from_direction == :top && next_direction == :bottom ||
@@ -212,10 +210,7 @@ class Waypoint < Tile
     end
 
     if selected_bonus
-      if selected_bonus.distance_to(px, py) < Env.game.track_tile_size/3
-        px = selected_bonus.x
-        py = selected_bonus.y
-      end
+      px, py = selected_bonus.x, selected_bonus.y
     end
 
     [px, py]
