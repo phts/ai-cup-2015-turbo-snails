@@ -38,6 +38,9 @@ class MyStrategy
         Env.move.engine_power = -1 if Env.me.speed > 32
       end
     end
+    if waypoint.force_brake? && Env.me.speed > 5
+      Env.move.brake = true
+    end
 
     if Env.me.tile.corner?
       Env.move.spill_oil = true

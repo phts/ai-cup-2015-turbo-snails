@@ -28,6 +28,7 @@ class Waypoint < Tile
   def initialize(*args)
     super(*args)
     @enable_brake = true
+    @force_brake = false
   end
 
   def preferable_for_me_real_coords(subwaypoints)
@@ -204,6 +205,12 @@ class Waypoint < Tile
           py = rc[:bottom_y]
         end
       end
+
+      # Check if beginning sharp turn
+      if wp_before_self.equals?(current_tile) &&
+         wp_before_self.from_direction == self.next_direction
+        @force_brake = true
+      end
     end
 
     if selected_bonus
@@ -224,5 +231,9 @@ class Waypoint < Tile
   def enable_brake?
     return false unless !!@enable_brake
     self.corner?
+  end
+
+  def force_brake?
+    @force_brake
   end
 end
