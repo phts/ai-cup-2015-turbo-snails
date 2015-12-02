@@ -50,6 +50,7 @@ class PathFinder
           level << left_neighbour_node
         end
       end
+      exclude_path_with_tile = nil
       tree << level
     end
   end
