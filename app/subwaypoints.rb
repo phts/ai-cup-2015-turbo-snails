@@ -14,6 +14,7 @@ class Subwaypoints
     @next_subwaypoint_index = 0
     @rebuilt_subwaypoints = nil
     @next_rebuilt_subwaypoint_index = 0
+    @cached_tiles_between = {}
   end
 
   def update
@@ -147,6 +148,10 @@ class Subwaypoints
   end
 
   def tiles_between(tile1, tile2)
+    if @cached_tiles_between[:tile1] && tile1.equals?(@cached_tiles_between[:tile1]) &&
+       @cached_tiles_between[:tile2] && tile2.equals?(@cached_tiles_between[:tile2])
+      return @cached_tiles_between[:tiles]
+    end
     tiles = []
     if tile1.x == tile2.x
       tile1.y.step(tile2.y, (tile1.y < tile2.y ? 1 : -1)) do |y|
@@ -159,6 +164,9 @@ class Subwaypoints
     else
       tiles = PathFinder.new(tile1, tile2).find_shortest_path
     end
+    @cached_tiles_between[:tile1] = tile1
+    @cached_tiles_between[:tile2] = tile2
+    @cached_tiles_between[:tiles] = tiles
     tiles
   end
 
