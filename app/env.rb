@@ -1,31 +1,36 @@
-require 'singleton'
 require_relative 'car_proxy'
 
 class Env
-  include Singleton
 
-  attr_reader :me
-  attr_reader :world
-  attr_reader :game
-  attr_reader :move
-
-  def Env.method_missing(method_sym, *arguments, &block)
-    instance.send(method_sym, *arguments, &block)
-  end
-
-  def update(me, world, game, move, subwaypoints)
-    @me = CarProxy.new(me)
-    @world = world
-    @game = game
-    @move = move
+  def Env.update(me, world, game, move, subwaypoints)
+    @@me = CarProxy.new(me)
+    @@world = world
+    @@game = game
+    @@move = move
     subwaypoints.update
   end
 
-  def after_tick?(tick)
+  def Env.me
+    @@me
+  end
+
+  def Env.world
+    @@world
+  end
+
+  def Env.game
+    @@game
+  end
+
+  def Env.move
+    @@move
+  end
+
+  def Env.after_tick?(tick)
     Env.world.tick > tick
   end
 
-  def started?
+  def Env.started?
     Env.after_tick?(Env.game.initial_freeze_duration_ticks)
   end
 
