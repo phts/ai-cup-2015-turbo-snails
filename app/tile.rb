@@ -130,15 +130,16 @@ class Tile
   end
 
   def neighbours
-    {
-      top: Tile.at(x, y-1, true),
-      right: Tile.at(x+1, y, true),
-      bottom: Tile.at(x, y+1, true),
-      left: Tile.at(x-1, y, true),
-    }
+    @neighbours ||= {
+                      top: Tile.at(x, y-1, true),
+                      right: Tile.at(x+1, y, true),
+                      bottom: Tile.at(x, y+1, true),
+                      left: Tile.at(x-1, y, true),
+                    }
   end
 
   def accessible_neighbours
+    return @accessible_neighbours if @accessible_neighbours
     n = neighbours
     case type
     when TileType::VERTICAL
@@ -163,7 +164,7 @@ class Tile
       n[:top] = nil
     when TileType::CROSSROADS
     end
-    n
+    @accessible_neighbours = n
   end
 
   def straight?
