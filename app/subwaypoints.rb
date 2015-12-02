@@ -1,5 +1,4 @@
 require 'singleton'
-require 'forwardable'
 require_relative 'env'
 require_relative 'tile'
 require_relative 'path_finder'
@@ -9,6 +8,10 @@ class Subwaypoints
   include Singleton
 
   attr_reader :next_subwaypoint_index
+
+  def Subwaypoints.method_missing(method_sym, *arguments, &block)
+    instance.send(method_sym, *arguments, &block)
+  end
 
   def initialize
     @next_subwaypoint_index = 0
@@ -63,11 +66,6 @@ class Subwaypoints
     if @rebuilt_subwaypoints.empty?
       @rebuilt_subwaypoints << end_tile
     end
-  end
-
-  class << self
-    extend Forwardable
-    def_delegators :instance, *Subwaypoints.instance_methods(false)
   end
 
   private

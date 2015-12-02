@@ -1,5 +1,4 @@
 require 'singleton'
-require 'forwardable'
 require_relative 'env'
 require_relative 'subwaypoints'
 
@@ -9,6 +8,10 @@ class Moving
   TICK_COUNT_WHEN_GOT_STUCK = 40
   TICK_COUNT_LIMIT_WHEN_GOT_STUCK = 200
   REPARING_POSITION_TICK_COUNT = 150
+
+  def Moving.method_missing(method_sym, *arguments, &block)
+    instance.send(method_sym, *arguments, &block)
+  end
 
   def initialize
     @low_speed_count = 0
@@ -50,11 +53,6 @@ class Moving
       Env.move.engine_power = 1.0
       Env.move.brake = true
     end
-  end
-
-  class << self
-    extend Forwardable
-    def_delegators :instance, *Moving.instance_methods(false)
   end
 
 end

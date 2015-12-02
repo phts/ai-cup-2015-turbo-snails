@@ -1,5 +1,4 @@
 require 'singleton'
-require 'forwardable'
 require_relative 'car_proxy'
 require_relative 'subwaypoints'
 
@@ -10,6 +9,10 @@ class Env
   attr_reader :world
   attr_reader :game
   attr_reader :move
+
+  def Env.method_missing(method_sym, *arguments, &block)
+    instance.send(method_sym, *arguments, &block)
+  end
 
   def update(me, world, game, move)
     @me = CarProxy.new(me)
@@ -25,11 +28,6 @@ class Env
 
   def started?
     Env.after_tick?(Env.game.initial_freeze_duration_ticks)
-  end
-
-  class << self
-    extend Forwardable
-    def_delegators :instance, *Env.instance_methods(false)
   end
 
 end
