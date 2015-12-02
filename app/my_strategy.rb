@@ -9,6 +9,10 @@ require_relative 'moving'
 
 class MyStrategy
 
+  def initialize
+    @moving = Moving.new
+  end
+
   def move(me, world, game, move)
     return if world.players.count == 2
 
@@ -42,8 +46,8 @@ class MyStrategy
       Env.move.throw_projectile = true
     end
 
-    if Moving.got_stuck?
-      Moving.repare_position
+    if moving.got_stuck?
+      moving.repare_position(subwaypoints)
       return
     end
     if Env.after_tick?(250)
@@ -52,5 +56,9 @@ class MyStrategy
       end
     end
   end
+
+  private
+
+  attr_reader :moving
 
 end

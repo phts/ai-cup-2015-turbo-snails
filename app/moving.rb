@@ -1,17 +1,10 @@
-require 'singleton'
 require_relative 'env'
 require_relative 'subwaypoints'
 
 class Moving
-  include Singleton
-
   TICK_COUNT_WHEN_GOT_STUCK = 40
   TICK_COUNT_LIMIT_WHEN_GOT_STUCK = 200
   REPARING_POSITION_TICK_COUNT = 150
-
-  def Moving.method_missing(method_sym, *arguments, &block)
-    instance.send(method_sym, *arguments, &block)
-  end
 
   def initialize
     @low_speed_count = 0
