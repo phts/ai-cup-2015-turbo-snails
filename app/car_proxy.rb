@@ -49,7 +49,7 @@ class CarProxy < Proxy
   end
 
   def nearest(units)
-    @nearest ||= units.sort_by{|u| u.distance_to(subject.x, subject.y) }.first
+    @nearest ||= units.min_by{|u| u.distance_to(subject.x, subject.y) }
   end
 
 end
