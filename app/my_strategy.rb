@@ -30,8 +30,8 @@ class MyStrategy
         Env.move.brake = true if Env.me.speed > 14
         Env.move.engine_power = -1 if Env.me.speed > 20
       elsif distance < Env.game.track_tile_size*3
-        Env.move.brake = true if Env.me.speed > 20
-        Env.move.engine_power = -1 if Env.me.speed > 23
+        Env.move.brake = true if Env.me.speed > 27
+        Env.move.engine_power = -1 if Env.me.speed > 32
       end
     end
 
