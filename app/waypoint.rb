@@ -211,10 +211,10 @@ class Waypoint < Tile
       end
     end
 
-    if nearest_bonus = selected_bonus || Env.me.nearest(bonuses)
-      if nearest_bonus.distance_to(px, py) < Env.game.track_tile_size/3
-        px = nearest_bonus.x
-        py = nearest_bonus.y
+    if selected_bonus
+      if selected_bonus.distance_to(px, py) < Env.game.track_tile_size/3
+        px = selected_bonus.x
+        py = selected_bonus.y
       end
     end
 
