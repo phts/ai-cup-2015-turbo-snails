@@ -1,17 +1,10 @@
-require 'singleton'
 require_relative 'env'
 require_relative 'tile'
 require_relative 'path_finder'
 require_relative 'waypoint'
 
 class Subwaypoints
-  include Singleton
-
   attr_reader :next_subwaypoint_index
-
-  def Subwaypoints.method_missing(method_sym, *arguments, &block)
-    instance.send(method_sym, *arguments, &block)
-  end
 
   def initialize
     @next_subwaypoint_index = 0

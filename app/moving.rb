@@ -1,5 +1,4 @@
 require_relative 'env'
-require_relative 'subwaypoints'
 
 class Moving
   TICK_COUNT_WHEN_GOT_STUCK = 40
@@ -34,10 +33,10 @@ class Moving
     @reparing_position_ticks != 0
   end
 
-  def repare_position
+  def repare_position(subwaypoints)
     @reparing_position_ticks += 1
     if @reparing_position_ticks == REPARING_POSITION_TICK_COUNT
-      Subwaypoints.use_rebuilt_path_to_next(Env.me.tile)
+      subwaypoints.use_rebuilt_path_to_next(Env.me.tile)
     end
     Env.move.engine_power = -1.0
     Env.move.wheel_turn = -Env.move.wheel_turn

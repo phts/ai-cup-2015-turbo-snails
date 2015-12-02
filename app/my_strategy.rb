@@ -11,17 +11,18 @@ class MyStrategy
 
   def initialize
     @moving = Moving.new
+    @subwaypoints = Subwaypoints.new
   end
 
   def move(me, world, game, move)
     return if world.players.count == 2
 
-    Env.update(me, world, game, move)
+    Env.update(me, world, game, move, subwaypoints)
     return unless Env.started?
     return if Env.me.destroyed?
 
-    waypoint = Subwaypoints.next
-    coords = waypoint.preferable_for_me_real_coords
+    waypoint = subwaypoints.next
+    coords = waypoint.preferable_for_me_real_coords(subwaypoints)
 
     angel_to_waypoint = Env.me.angle_to(*coords)
 
@@ -51,7 +52,7 @@ class MyStrategy
       return
     end
     if Env.after_tick?(250)
-      if Subwaypoints.tile_count_before_corner > 3
+      if subwaypoints.tile_count_before_corner > 3
         Env.move.use_nitro = true
       end
     end
@@ -60,5 +61,6 @@ class MyStrategy
   private
 
   attr_reader :moving
+  attr_reader :subwaypoints
 
 end

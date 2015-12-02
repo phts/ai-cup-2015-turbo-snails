@@ -1,7 +1,6 @@
 require './model/tile_type'
 require_relative 'env'
 require_relative 'tile'
-require_relative 'subwaypoints'
 
 class Waypoint < Tile
   attr_accessor :next_direction
@@ -31,7 +30,7 @@ class Waypoint < Tile
     @enable_brake = true
   end
 
-  def preferable_for_me_real_coords
+  def preferable_for_me_real_coords(subwaypoints)
     rc = real_coords
     current_tile = Env.me.tile
     self_next_to_me = self.accessible_neighbour?(current_tile)
@@ -106,9 +105,9 @@ class Waypoint < Tile
     end
 
     if self_next_to_me
-      wp_after_self = Subwaypoints[Subwaypoints.next_subwaypoint_index+1]
-      wp_after_after_self = Subwaypoints[Subwaypoints.next_subwaypoint_index+2]
-      wp_before_self = Subwaypoints[Subwaypoints.next_subwaypoint_index-1]
+      wp_after_self = subwaypoints[subwaypoints.next_subwaypoint_index+1]
+      wp_after_after_self = subwaypoints[subwaypoints.next_subwaypoint_index+2]
+      wp_before_self = subwaypoints[subwaypoints.next_subwaypoint_index-1]
 
       # Check if zigzag then move straight through all corners
       if wp_before_self.equals?(current_tile) &&

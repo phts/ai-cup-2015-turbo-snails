@@ -1,6 +1,5 @@
 require 'singleton'
 require_relative 'car_proxy'
-require_relative 'subwaypoints'
 
 class Env
   include Singleton
@@ -14,12 +13,12 @@ class Env
     instance.send(method_sym, *arguments, &block)
   end
 
-  def update(me, world, game, move)
+  def update(me, world, game, move, subwaypoints)
     @me = CarProxy.new(me)
     @world = world
     @game = game
     @move = move
-    Subwaypoints.update
+    subwaypoints.update
   end
 
   def after_tick?(tick)
