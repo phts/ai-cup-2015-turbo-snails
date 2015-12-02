@@ -160,50 +160,48 @@ class Waypoint < Tile
       end
 
       # Check if a sharp turn
-      if self_next_to_me &&
-         self.accessible_neighbour?(wp_after_self) && wp_after_self.corner?
-        if self.from_direction == wp_after_self.next_direction
-          if self.from_direction == :bottom && self.next_direction == :right
-            # ╔╗
-            # ↑
-            px = rc[:center_x]
-            py = rc[:bottom_y]
-          elsif self.from_direction == :left && self.next_direction == :top
-            #  ╗
-            # →╝
-            px = rc[:left_x]
-            py = rc[:center_y]
-          elsif self.from_direction == :left && self.next_direction == :bottom
-            # →╗
-            #  ╝
-            px = rc[:left_x]
-            py = rc[:center_y]
-          elsif self.from_direction == :top && self.next_direction == :right
-            # ↓
-            # ╚╝
-            px = rc[:center_x]
-            py = rc[:top_y]
-          elsif self.from_direction == :top && self.next_direction == :left
-            #  ↓
-            # ╚╝
-            px = rc[:center_x]
-            py = rc[:top_y]
-          elsif self.from_direction == :right && self.next_direction == :bottom
-            # ╔←
-            # ╚
-            px = rc[:right_x]
-            py = rc[:center_y]
-          elsif self.from_direction == :right && self.next_direction == :top
-            # ╔
-            # ╚←
-            px = rc[:right_x]
-            py = rc[:center_y]
-          elsif self.from_direction == :bottom && self.next_direction == :left
-            # ╔╗
-            #  ↑
-            px = rc[:center_x]
-            py = rc[:bottom_y]
-          end
+      if self.accessible_neighbour?(wp_after_self) && wp_after_self.corner? &&
+         self.from_direction == wp_after_self.next_direction
+        if self.from_direction == :bottom && self.next_direction == :right
+          # ╔╗
+          # ↑
+          px = rc[:center_x]
+          py = rc[:bottom_y]
+        elsif self.from_direction == :left && self.next_direction == :top
+          #  ╗
+          # →╝
+          px = rc[:left_x]
+          py = rc[:center_y]
+        elsif self.from_direction == :left && self.next_direction == :bottom
+          # →╗
+          #  ╝
+          px = rc[:left_x]
+          py = rc[:center_y]
+        elsif self.from_direction == :top && self.next_direction == :right
+          # ↓
+          # ╚╝
+          px = rc[:center_x]
+          py = rc[:top_y]
+        elsif self.from_direction == :top && self.next_direction == :left
+          #  ↓
+          # ╚╝
+          px = rc[:center_x]
+          py = rc[:top_y]
+        elsif self.from_direction == :right && self.next_direction == :bottom
+          # ╔←
+          # ╚
+          px = rc[:right_x]
+          py = rc[:center_y]
+        elsif self.from_direction == :right && self.next_direction == :top
+          # ╔
+          # ╚←
+          px = rc[:right_x]
+          py = rc[:center_y]
+        elsif self.from_direction == :bottom && self.next_direction == :left
+          # ╔╗
+          #  ↑
+          px = rc[:center_x]
+          py = rc[:bottom_y]
         end
       end
     end
