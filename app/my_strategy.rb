@@ -14,6 +14,7 @@ class MyStrategy
     return if world.players.count == 2
 
     Env.update(me, world, game, move)
+    return unless Env.started?
     return if Env.me.destroyed?
 
     waypoint = Subwaypoints.next
