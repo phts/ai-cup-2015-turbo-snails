@@ -1,6 +1,7 @@
 require './model/car'
 require_relative 'proxy'
 require_relative 'env'
+require_relative 'tile'
 
 class CarProxy < Proxy
 

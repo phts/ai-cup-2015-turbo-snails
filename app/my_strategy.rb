@@ -4,7 +4,6 @@ require './model/move'
 require './model/world'
 require_relative 'array'
 require_relative 'env'
-require_relative 'tile'
 require_relative 'subwaypoints'
 require_relative 'moving'
 
