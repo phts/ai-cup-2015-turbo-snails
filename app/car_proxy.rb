@@ -41,6 +41,12 @@ class CarProxy < Proxy
     false
   end
 
+  def ready_to_spill_oil?
+    return false if no_oil_canisters?
+    return false if subject.remaining_oil_cooldown_ticks != 0
+    Env.me.tile.corner?
+  end
+
   def destroyed?
     Env.me.durability == 0
   end
@@ -51,6 +57,10 @@ class CarProxy < Proxy
 
   def nearest(units)
     @nearest ||= units.min_by{|u| u.distance_to(subject.x, subject.y) }
+  end
+
+  def no_oil_canisters?
+    subject.oil_canister_count == 0
   end
 
 end

@@ -42,7 +42,7 @@ class MyStrategy
       Env.move.brake = true
     end
 
-    if Env.me.tile.corner?
+    if Env.me.ready_to_spill_oil?
       Env.move.spill_oil = true
     end
 
