@@ -6,7 +6,7 @@ require_relative 'tile'
 
 class CarProxy < Proxy
 
-  ANGLE_TO_SHOOT_FOR_BUGGY = 0.174
+  ANGLE_TO_SHOOT_FOR_BUGGY = 0.15
   ANGLE_TO_SHOOT_FOR_JEEP = 0.5
 
   def initialize(car)
@@ -41,7 +41,7 @@ class CarProxy < Proxy
       Env.world.cars.each do |car|
         next if my?(car)
         return true if subject.angle_to_unit(car).abs < ANGLE_TO_SHOOT_FOR_BUGGY &&
-                       subject.distance_to_unit(car) < Env.game.track_tile_size*2
+                       subject.distance_to_unit(car) < Env.game.track_tile_size
       end
     else
       ready = false
