@@ -46,7 +46,7 @@ class MyStrategy
       Env.move.spill_oil = true
     end
 
-    if Env.me.has_other_cars_in_front?
+    if Env.me.ready_to_shoot?
       Env.move.throw_projectile = true
     end
 

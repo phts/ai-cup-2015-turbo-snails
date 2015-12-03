@@ -32,7 +32,9 @@ class CarProxy < Proxy
     Env.world.players.find{ |p| p.id == car.player_id }.me
   end
 
-  def has_other_cars_in_front?
+  def ready_to_shoot?
+    return false if no_projectiles?
+    return false if subject.remaining_projectile_cooldown_ticks != 0
     Env.world.cars.each do |car|
       next if my?(car)
       return true if subject.angle_to_unit(car).abs < ANGLE_FOR_OTHER_CARS_IN_FRONT &&
@@ -61,6 +63,10 @@ class CarProxy < Proxy
 
   def no_oil_canisters?
     subject.oil_canister_count == 0
+  end
+
+  def no_projectiles?
+    subject.projectile_count == 0
   end
 
 end
