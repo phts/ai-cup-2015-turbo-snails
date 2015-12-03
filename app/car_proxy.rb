@@ -28,13 +28,13 @@ class CarProxy < Proxy
     self.tile.accessible_neighbour?(tile)
   end
 
-  def me?(car)
+  def my?(car)
     Env.world.players.find{ |p| p.id == car.player_id }.me
   end
 
   def has_other_cars_in_front?
     Env.world.cars.each do |car|
-      next if me?(car)
+      next if my?(car)
       return true if subject.angle_to_unit(car).abs < ANGLE_FOR_OTHER_CARS_IN_FRONT &&
                      subject.distance_to_unit(car) < Env.game.track_tile_size*2
     end
