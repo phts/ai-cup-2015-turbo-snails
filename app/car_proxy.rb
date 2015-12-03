@@ -1,11 +1,13 @@
 require './model/car'
+require './model/car_type'
 require_relative 'proxy'
 require_relative 'env'
 require_relative 'tile'
 
 class CarProxy < Proxy
 
-  ANGLE_FOR_OTHER_CARS_IN_FRONT = 0.174
+  ANGLE_TO_SHOOT_FOR_BUGGY = 0.174
+  ANGLE_TO_SHOOT_FOR_JEEP = 0.5
 
   def initialize(car)
     super(car)
@@ -35,10 +37,26 @@ class CarProxy < Proxy
   def ready_to_shoot?
     return false if no_projectiles?
     return false if subject.remaining_projectile_cooldown_ticks != 0
-    Env.world.cars.each do |car|
-      next if my?(car)
-      return true if subject.angle_to_unit(car).abs < ANGLE_FOR_OTHER_CARS_IN_FRONT &&
-                     subject.distance_to_unit(car) < Env.game.track_tile_size*2
+    if subject.type == CarType::BUGGY
+      Env.world.cars.each do |car|
+        next if my?(car)
+        return true if subject.angle_to_unit(car).abs < ANGLE_TO_SHOOT_FOR_BUGGY &&
+                       subject.distance_to_unit(car) < Env.game.track_tile_size*2
+      end
+    else
+      ready = false
+      Env.world.cars.each do |car|
+        next if my?(car)
+
+        # To ensure that projectile will not disappear after shooting
+        # due to http://russianaicup.ru/forum/index.php?topic=521.0
+        return false if subject.distance_to_unit(car) <= Env.game.car_width
+
+        ready = true if subject.angle_to_unit(car).abs < ANGLE_TO_SHOOT_FOR_JEEP &&
+                        subject.distance_to_unit(car) > Env.game.car_width &&
+                        tile.equals?(Tile.under(car))
+      end
+      return true if ready
     end
     false
   end
