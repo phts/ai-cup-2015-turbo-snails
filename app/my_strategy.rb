@@ -23,10 +23,10 @@ class MyStrategy
     waypoint = subwaypoints.next
     coords = waypoint.preferable_for_me_real_coords(subwaypoints)
     angel_to_waypoint = Env.me.angle_to(*coords)
-
-    Env.move.engine_power = 1
     Env.move.wheel_turn = angel_to_waypoint * 5
     return unless Env.started?
+
+    Env.move.engine_power = 1
 
     if waypoint.enable_brake?
       if (distance = Env.me.distance_to(*coords)) < Env.game.track_tile_size
