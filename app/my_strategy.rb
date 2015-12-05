@@ -18,16 +18,15 @@ class MyStrategy
     return if world.players.count == 2
 
     Env.update(me, world, game, move, subwaypoints)
-    return unless Env.started?
     return if Env.me.destroyed?
 
     waypoint = subwaypoints.next
     coords = waypoint.preferable_for_me_real_coords(subwaypoints)
-
     angel_to_waypoint = Env.me.angle_to(*coords)
 
     Env.move.engine_power = 1
     Env.move.wheel_turn = angel_to_waypoint * 5
+    return unless Env.started?
 
     if waypoint.enable_brake?
       if (distance = Env.me.distance_to(*coords)) < Env.game.track_tile_size
