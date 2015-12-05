@@ -30,23 +30,19 @@ class CarProxy < Proxy
     self.tile.accessible_neighbour?(tile)
   end
 
-  def my?(car)
-    Env.world.players.find{ |p| p.id == car.player_id }.me
-  end
-
   def ready_to_shoot?
     return false if no_projectiles?
     return false if subject.remaining_projectile_cooldown_ticks != 0
     if subject.type == CarType::BUGGY
       Env.world.cars.each do |car|
-        next if my?(car)
+        next if car.teammate
         return true if subject.angle_to_unit(car).abs < ANGLE_TO_SHOOT_FOR_BUGGY &&
                        subject.distance_to_unit(car) < Env.game.track_tile_size
       end
     else
       ready = false
       Env.world.cars.each do |car|
-        next if my?(car)
+        next if car.teammate
 
         # To ensure that projectile will not disappear after shooting
         # due to http://russianaicup.ru/forum/index.php?topic=521.0
