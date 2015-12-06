@@ -25,6 +25,10 @@ class Subwaypoints
     end
     if subwaypoints[@next_subwaypoint_index].equals? csw
       @next_subwaypoint_index = (@next_subwaypoint_index+1) % subwaypoints.count
+      if @next_subwaypoint_index == 0 && Env.game2x2?
+        # recreate subwaypoints for 2x2 game after the first lap when the map has already been revealed
+        @subwaypoints = nil
+      end
     end
   end
 

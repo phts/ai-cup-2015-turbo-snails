@@ -34,4 +34,8 @@ class Env
     Env.after_tick?(Env.game.initial_freeze_duration_ticks)
   end
 
+  def Env.game2x2?
+    Env.world.players.count == 2
+  end
+
 end
