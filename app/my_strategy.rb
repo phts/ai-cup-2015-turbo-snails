@@ -15,8 +15,6 @@ class MyStrategy
   end
 
   def move(me, world, game, move)
-    return if world.players.count == 2
-
     Env.update(me, world, game, move, subwaypoints)
     return if Env.me.destroyed?
 

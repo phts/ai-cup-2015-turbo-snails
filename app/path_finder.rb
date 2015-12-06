@@ -8,6 +8,7 @@ class PathFinder
   # Retunrs array. First item is start_tile and last item is end_tile
   def find_shortest_path(exclude_path_with_tile = nil)
     node = find_end_tile(exclude_path_with_tile)
+    return [@start_tile, @end_tile] if node.nil?
     expand_path(node)
   end
 
@@ -16,7 +17,7 @@ class PathFinder
   def find_end_tile(exclude_path_with_tile)
     level = [{self: @start_tile}]
     tree = [level]
-    while true
+    loop do
       level = []
       tree[-1].each do |node|
         nbs = node[:self].accessible_neighbours
@@ -51,6 +52,7 @@ class PathFinder
         end
       end
       exclude_path_with_tile = nil
+      return nil if level.empty?
       tree << level
     end
   end
