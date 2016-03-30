@@ -32,4 +32,4 @@
     * Всего игр: 169
     * Побед: 21%
 
-Как и [в прошлом году](https://github.com/phts/hedgehogs-team), выиграл футболку :tshirt:.
+Как и [в прошлом году](https://github.com/phts/russian-ai-cup-2014-hedgehogs-team), выиграл футболку :tshirt:.
