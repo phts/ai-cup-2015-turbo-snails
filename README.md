@@ -2,9 +2,9 @@
 
 ![Турбо-улитки](https://hsto.org/files/b4c/ca2/064/b4cca206426f4d2882e240c7a622384e.jpg "Турбо-улитки на трассе")
 
-Стратегия для управления кодемобилями, написанная в рамках соревнований [Russian AI Cup 2015 CodeRacing](http://russianaicup.ru/) :checkered_flag:.
+Стратегия для управления кодемобилями, написанная в рамках соревнований [Russian AI Cup 2015 CodeRacing](http://2015.russianaicup.ru/) :checkered_flag:.
 
-* [Мой профиль](http://russianaicup.ru/profile/phts) :space_invader:
+* [Мой профиль](http://2015.russianaicup.ru/profile/phts) :space_invader:
 * [Правила](https://github.com/Russian-AI-Cup-2015/Tutorial) :scroll:
 
 ## Расписание :calendar:
